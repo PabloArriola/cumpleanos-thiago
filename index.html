@@ -709,5 +709,23 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal()
 
 render();
 </script>
+  <script type="module">
+  // Importar la función para inicializar Firebase
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+  // La configuración de Firebase de tu app web
+  const firebaseConfig = {
+    apiKey: "AIzaSyBNZOAbROxBNptQVFIWQh6fZ-Kf4tYa53k",
+    authDomain: "cumpleanos-thiago.firebaseapp.com",
+    projectId: "cumpleanos-thiago",
+    storageBucket: "cumpleanos-thiago.firebasestorage.app",
+    messagingSenderId: "447789465359",
+    appId: "1:447789465359:web:0c4266e63a8cb5ef61087a"
+  };
+
+  // Inicializar Firebase
+  const app = initializeApp(firebaseConfig);
+  console.log("¡Firebase conectado exitosamente!");
+</script>
 </body>
 </html>
