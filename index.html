@@ -43,419 +43,113 @@
     position: relative;
     overflow: hidden;
   }
-  .header::before {
-    content: '🎈';
-    position: absolute; top: -10px; right: 10px;
-    font-size: 80px; opacity: 0.12; transform: rotate(15deg);
+  .header::before { content: '🎈'; position: absolute; top: -10px; right: 10px; font-size: 80px; opacity: 0.12; transform: rotate(15deg); }
+  .header::after { content: '🎂'; position: absolute; bottom: -20px; right: 60px; font-size: 80px; opacity: 0.10; }
+  .header h1 { color: #fff; font-size: 22px; font-weight: 700; letter-spacing: -0.3px; }
+  .header p { color: #DDD6FE; font-size: 13px; margin-top: 2px; }
+  
+  /* MAIN TABS */
+  .main-tabs {
+    display: flex; gap: 10px; padding: 1rem; background: var(--bg); position: sticky; top: 0; z-index: 20; border-bottom: 1px solid var(--gray-200);
   }
-  .header::after {
-    content: '🎂';
-    position: absolute; bottom: -20px; right: 60px;
-    font-size: 80px; opacity: 0.10;
+  .main-tab {
+    flex: 1; padding: 10px; border: none; border-radius: var(--radius-sm); font-weight: 700; font-size: 14px; cursor: pointer; background: var(--gray-200); color: var(--gray-600); transition: all 0.2s;
   }
-  .header h1 {
-    color: #fff;
-    font-size: 22px;
-    font-weight: 700;
-    letter-spacing: -0.3px;
-  }
-  .header p {
-    color: #DDD6FE;
-    font-size: 13px;
-    margin-top: 2px;
-  }
-  /* STATS */
-  .stats-bar {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 8px;
-    padding: 1rem;
-    margin-top: -1px;
-    background: var(--card);
-    border-bottom: 1px solid var(--gray-200);
-  }
-  .stat-item {
-    text-align: center;
-    padding: 10px 4px;
-    border-radius: var(--radius-sm);
-    background: var(--gray-50);
-  }
-  .stat-num {
-    font-size: 22px;
-    font-weight: 700;
-    line-height: 1;
-  }
-  .stat-num.total   { color: var(--primary); }
-  .stat-num.pend    { color: var(--accent); }
-  .stat-num.done    { color: var(--success); }
-  .stat-label {
-    font-size: 11px;
-    color: var(--gray-400);
-    margin-top: 3px;
-    text-transform: uppercase;
-    letter-spacing: 0.4px;
-  }
+  .main-tab.active { background: var(--primary); color: white; box-shadow: var(--shadow); }
+
+  /* STATS (Tareas) */
+  .stats-bar { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; padding: 1rem; background: var(--card); border-bottom: 1px solid var(--gray-200); }
+  .stat-item { text-align: center; padding: 10px 4px; border-radius: var(--radius-sm); background: var(--gray-50); }
+  .stat-num { font-size: 22px; font-weight: 700; line-height: 1; }
+  .stat-num.total { color: var(--primary); } .stat-num.pend { color: var(--accent); } .stat-num.done { color: var(--success); }
+  .stat-label { font-size: 11px; color: var(--gray-400); margin-top: 3px; text-transform: uppercase; letter-spacing: 0.4px; }
+  
   /* PROGRESS */
-  .progress-wrap {
-    background: var(--card);
-    padding: 0.75rem 1rem;
-    border-bottom: 1px solid var(--gray-200);
-  }
-  .progress-top {
-    display: flex;
-    justify-content: space-between;
-    font-size: 12px;
-    color: var(--gray-600);
-    margin-bottom: 6px;
-  }
-  .progress-bar {
-    height: 8px;
-    background: var(--gray-200);
-    border-radius: 99px;
-    overflow: hidden;
-  }
-  .progress-fill {
-    height: 100%;
-    background: linear-gradient(90deg, #7C3AED, #A78BFA);
-    border-radius: 99px;
-    transition: width 0.5s ease;
-  }
+  .progress-wrap { background: var(--card); padding: 0.75rem 1rem; border-bottom: 1px solid var(--gray-200); }
+  .progress-top { display: flex; justify-content: space-between; font-size: 12px; color: var(--gray-600); margin-bottom: 6px; }
+  .progress-bar { height: 8px; background: var(--gray-200); border-radius: 99px; overflow: hidden; }
+  .progress-fill { height: 100%; background: linear-gradient(90deg, #7C3AED, #A78BFA); border-radius: 99px; transition: width 0.5s ease; }
+  
   /* COUNTDOWN */
-  .countdown-card {
-    margin: 1rem;
-    background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
-    border-radius: var(--radius);
-    padding: 14px;
-    color: white;
-    box-shadow: var(--shadow-md);
-    text-align: center;
-  }
-  .cd-title {
-    font-size: 13px;
-    font-weight: 700;
-    margin-bottom: 10px;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-  }
-  .cd-timer {
-    display: flex;
-    justify-content: center;
-    gap: 12px;
-  }
-  .cd-box {
-    background: rgba(255,255,255,0.25);
-    border-radius: 8px;
-    padding: 8px 12px;
-    min-width: 60px;
-  }
-  .cd-box span {
-    display: block;
-    font-size: 24px;
-    font-weight: 800;
-    line-height: 1;
-  }
-  .cd-box small {
-    font-size: 10px;
-    font-weight: 600;
-    text-transform: uppercase;
-    opacity: 0.95;
-  }
+  .countdown-card { margin: 1rem; background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%); border-radius: var(--radius); padding: 14px; color: white; box-shadow: var(--shadow-md); text-align: center; }
+  .cd-title { font-size: 13px; font-weight: 700; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .cd-timer { display: flex; justify-content: center; gap: 12px; }
+  .cd-box { background: rgba(255,255,255,0.25); border-radius: 8px; padding: 8px 12px; min-width: 60px; }
+  .cd-box span { display: block; font-size: 24px; font-weight: 800; line-height: 1; }
+  .cd-box small { font-size: 10px; font-weight: 600; text-transform: uppercase; opacity: 0.95; }
+  
   /* CONTROLS */
-  .controls {
-    padding: 0.75rem 1rem;
-    display: flex;
-    gap: 8px;
-    background: var(--card);
-    border-bottom: 1px solid var(--gray-200);
-    position: sticky;
-    top: 0;
-    z-index: 10;
-  }
-  .filter-btn {
-    flex: 1;
-    padding: 7px 4px;
-    border: 1.5px solid var(--gray-200);
-    border-radius: 99px;
-    background: var(--gray-50);
-    font-size: 12px;
-    font-weight: 600;
-    color: var(--gray-600);
-    cursor: pointer;
-    transition: all 0.15s;
-  }
-  .filter-btn.active {
-    background: var(--primary);
-    border-color: var(--primary);
-    color: white;
-  }
-  .btn-add {
-    background: var(--primary);
-    color: white;
-    border: none;
-    border-radius: 99px;
-    padding: 7px 14px;
-    font-size: 13px;
-    font-weight: 600;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    white-space: nowrap;
-  }
-  /* LIST */
-  .list-section {
-    padding: 0 1rem;
-    margin-top: 1rem;
-  }
-  .category-group {
-    margin-bottom: 1rem;
-  }
-  .category-header {
-    font-size: 11px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.8px;
-    color: var(--gray-400);
-    padding: 0 4px 6px;
-  }
-  .item-card {
-    background: var(--card);
-    border-radius: var(--radius);
-    padding: 12px 14px;
-    margin-bottom: 8px;
-    box-shadow: var(--shadow);
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    transition: transform 0.15s;
-  }
+  .controls { padding: 0.75rem 1rem; display: flex; gap: 8px; background: var(--card); border-bottom: 1px solid var(--gray-200); }
+  .filter-btn { flex: 1; padding: 7px 4px; border: 1.5px solid var(--gray-200); border-radius: 99px; background: var(--gray-50); font-size: 12px; font-weight: 600; color: var(--gray-600); cursor: pointer; transition: all 0.15s; }
+  .filter-btn.active { background: var(--primary); border-color: var(--primary); color: white; }
+  .btn-add { background: var(--primary); color: white; border: none; border-radius: 99px; padding: 7px 14px; font-size: 13px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 4px; white-space: nowrap; }
+  
+  /* LISTS */
+  .list-section { padding: 0 1rem; margin-top: 1rem; }
+  .category-group { margin-bottom: 1rem; }
+  .category-header { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: var(--gray-400); padding: 0 4px 6px; }
+  .item-card { background: var(--card); border-radius: var(--radius); padding: 12px 14px; margin-bottom: 8px; box-shadow: var(--shadow); display: flex; align-items: center; gap: 10px; transition: transform 0.15s; }
   .item-card:active { transform: scale(0.99); }
-  .item-card.done {
-    opacity: 0.65;
-  }
-  .item-card.done .item-name {
-    text-decoration: line-through;
-    color: var(--gray-400);
-  }
-  /* Toggle switch */
-  .toggle-wrap {
-    flex-shrink: 0;
-  }
-  .toggle {
-    position: relative;
-    width: 40px;
-    height: 22px;
-    display: block;
-  }
+  .item-card.done { opacity: 0.65; }
+  .item-card.done .item-name { text-decoration: line-through; color: var(--gray-400); }
+  
+  /* TOGGLE */
+  .toggle-wrap { flex-shrink: 0; }
+  .toggle { position: relative; width: 40px; height: 22px; display: block; }
   .toggle input { display: none; }
-  .toggle-track {
-    position: absolute;
-    inset: 0;
-    background: var(--gray-200);
-    border-radius: 99px;
-    cursor: pointer;
-    transition: background 0.2s;
-  }
-  .toggle input:checked + .toggle-track {
-    background: var(--success);
-  }
-  .toggle-thumb {
-    position: absolute;
-    top: 3px; left: 3px;
-    width: 16px; height: 16px;
-    background: white;
-    border-radius: 50%;
-    transition: transform 0.2s;
-    pointer-events: none;
-  }
-  .toggle input:checked ~ .toggle-thumb {
-    transform: translateX(18px);
-  }
+  .toggle-track { position: absolute; inset: 0; background: var(--gray-200); border-radius: 99px; cursor: pointer; transition: background 0.2s; }
+  .toggle input:checked + .toggle-track { background: var(--success); }
+  .toggle-thumb { position: absolute; top: 3px; left: 3px; width: 16px; height: 16px; background: white; border-radius: 50%; transition: transform 0.2s; pointer-events: none; }
+  .toggle input:checked ~ .toggle-thumb { transform: translateX(18px); }
+  
+  /* ITEM BODY */
   .item-body { flex: 1; min-width: 0; }
-  .item-name {
-    font-size: 14px;
-    font-weight: 500;
-    color: var(--gray-800);
-    line-height: 1.3;
-  }
-  .item-meta {
-    display: flex;
-    gap: 6px;
-    margin-top: 4px;
-    align-items: center;
-    flex-wrap: wrap;
-  }
-  .badge {
-    font-size: 10px;
-    font-weight: 600;
-    padding: 2px 8px;
-    border-radius: 99px;
-    text-transform: uppercase;
-    letter-spacing: 0.3px;
-  }
-  .badge.alta  { background: #FEE2E2; color: #B91C1C; }
-  .badge.media { background: #FEF3C7; color: #92400E; }
-  .badge.baja  { background: #D1FAE5; color: #065F46; }
-  .badge.pend  { background: #EDE9FE; color: #5B21B6; }
-  .badge.comp  { background: #D1FAE5; color: #065F46; }
-  .item-note {
-    font-size: 11px;
-    color: var(--gray-400);
-    margin-top: 2px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-  .item-actions {
-    display: flex;
-    gap: 4px;
-    flex-shrink: 0;
-  }
-  .btn-icon {
-    width: 32px; height: 32px;
-    border: none;
-    border-radius: 8px;
-    background: var(--gray-100);
-    color: var(--gray-600);
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 15px;
-    transition: background 0.15s;
-  }
-  .btn-icon:hover { background: var(--gray-200); }
-  .btn-icon.del:hover { background: var(--danger-light); color: var(--danger); }
+  .item-name { font-size: 14px; font-weight: 500; color: var(--gray-800); line-height: 1.3; }
+  .item-meta { display: flex; gap: 6px; margin-top: 4px; align-items: center; flex-wrap: wrap; }
+  .badge { font-size: 10px; font-weight: 600; padding: 2px 8px; border-radius: 99px; text-transform: uppercase; letter-spacing: 0.3px; }
+  .badge.alta { background: var(--danger-light); color: #B91C1C; } .badge.media { background: var(--accent-light); color: #92400E; } .badge.baja { background: var(--success-light); color: #065F46; }
+  .badge.pend { background: var(--primary-light); color: var(--primary); } .badge.comp { background: var(--success-light); color: var(--success); }
+  .item-note { font-size: 11px; color: var(--gray-400); margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .item-actions { display: flex; gap: 4px; flex-shrink: 0; }
+  .btn-icon { width: 32px; height: 32px; border: none; border-radius: 8px; background: var(--gray-100); color: var(--gray-600); cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 15px; transition: background 0.15s; }
+  .btn-icon:hover { background: var(--gray-200); } .btn-icon.del:hover { background: var(--danger-light); color: var(--danger); }
+  
+  /* GUEST STYLES */
+  .guest-stats { display: flex; gap: 8px; margin: 0 1rem 1rem; }
+  .g-stat { flex: 1; background: var(--card); padding: 12px 6px; border-radius: var(--radius-sm); text-align: center; box-shadow: var(--shadow); }
+  .g-stat-num { font-size: 20px; font-weight: 800; color: var(--primary); line-height: 1; }
+  .g-stat-label { font-size: 10px; color: var(--gray-600); text-transform: uppercase; font-weight: 700; margin-top: 4px; }
+  .g-status-select { font-size: 12px; font-weight: 600; border: 1.5px solid var(--gray-200); border-radius: 6px; padding: 4px; background: white; color: var(--gray-800); outline: none; }
+  .g-status-select.Confirmado { border-color: var(--success); color: var(--success); }
+  .g-status-select.Pendiente { border-color: var(--accent); color: var(--accent); }
+  .g-status-select.Cancelado { border-color: var(--danger); color: var(--danger); }
+
   /* MODAL */
-  .modal-overlay {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.45);
-    z-index: 100;
-    align-items: flex-end;
-    justify-content: center;
-  }
+  .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.45); z-index: 100; align-items: flex-end; justify-content: center; }
   .modal-overlay.open { display: flex; }
-  .modal {
-    background: white;
-    border-radius: 20px 20px 0 0;
-    padding: 1.5rem 1rem 2rem;
-    width: 100%;
-    max-width: 480px;
-    animation: slideUp 0.25s ease;
-  }
-  @keyframes slideUp {
-    from { transform: translateY(40px); opacity: 0; }
-    to   { transform: translateY(0);    opacity: 1; }
-  }
-  .modal-title {
-    font-size: 17px;
-    font-weight: 700;
-    margin-bottom: 1rem;
-    color: var(--primary);
-  }
+  .modal { background: white; border-radius: 20px 20px 0 0; padding: 1.5rem 1rem 2rem; width: 100%; max-width: 480px; animation: slideUp 0.25s ease; }
+  @keyframes slideUp { from { transform: translateY(40px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+  .modal-title { font-size: 17px; font-weight: 700; margin-bottom: 1rem; color: var(--primary); }
   .form-group { margin-bottom: 12px; }
-  .form-label {
-    display: block;
-    font-size: 12px;
-    font-weight: 600;
-    color: var(--gray-600);
-    margin-bottom: 5px;
-    text-transform: uppercase;
-    letter-spacing: 0.4px;
-  }
-  .form-input, .form-select, .form-textarea {
-    width: 100%;
-    padding: 10px 12px;
-    border: 1.5px solid var(--gray-200);
-    border-radius: var(--radius-sm);
-    font-size: 14px;
-    color: var(--gray-800);
-    background: var(--gray-50);
-    outline: none;
-    transition: border-color 0.15s;
-    font-family: inherit;
-  }
-  .form-input:focus, .form-select:focus, .form-textarea:focus {
-    border-color: var(--primary);
-    background: white;
-  }
+  .form-label { display: block; font-size: 12px; font-weight: 600; color: var(--gray-600); margin-bottom: 5px; text-transform: uppercase; letter-spacing: 0.4px; }
+  .form-input, .form-select, .form-textarea { width: 100%; padding: 10px 12px; border: 1.5px solid var(--gray-200); border-radius: var(--radius-sm); font-size: 14px; color: var(--gray-800); background: var(--gray-50); outline: none; transition: border-color 0.15s; font-family: inherit; }
+  .form-input:focus, .form-select:focus, .form-textarea:focus { border-color: var(--primary); background: white; }
   .form-textarea { resize: vertical; min-height: 60px; }
-  .modal-actions {
-    display: flex;
-    gap: 8px;
-    margin-top: 1rem;
-  }
-  .btn-cancel {
-    flex: 1;
-    padding: 12px;
-    border: 1.5px solid var(--gray-200);
-    border-radius: var(--radius-sm);
-    background: white;
-    font-size: 14px;
-    font-weight: 600;
-    color: var(--gray-600);
-    cursor: pointer;
-  }
-  .btn-save {
-    flex: 2;
-    padding: 12px;
-    border: none;
-    border-radius: var(--radius-sm);
-    background: var(--primary);
-    color: white;
-    font-size: 14px;
-    font-weight: 700;
-    cursor: pointer;
-  }
-  .empty-state {
-    text-align: center;
-    padding: 3rem 1rem;
-    color: var(--gray-400);
-  }
+  .modal-actions { display: flex; gap: 8px; margin-top: 1rem; }
+  .btn-cancel { flex: 1; padding: 12px; border: 1.5px solid var(--gray-200); border-radius: var(--radius-sm); background: white; font-size: 14px; font-weight: 600; color: var(--gray-600); cursor: pointer; }
+  .btn-save { flex: 2; padding: 12px; border: none; border-radius: var(--radius-sm); background: var(--primary); color: white; font-size: 14px; font-weight: 700; cursor: pointer; }
+  .empty-state { text-align: center; padding: 3rem 1rem; color: var(--gray-400); }
   .empty-state .emoji { font-size: 48px; margin-bottom: 0.5rem; }
+  
   /* TOAST */
-  .toast {
-    position: fixed;
-    bottom: 20px; left: 50%;
-    transform: translateX(-50%) translateY(80px);
-    background: var(--gray-800);
-    color: white;
-    padding: 10px 20px;
-    border-radius: 99px;
-    font-size: 13px;
-    font-weight: 500;
-    z-index: 999;
-    transition: transform 0.3s ease;
-    white-space: nowrap;
-  }
+  .toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%) translateY(80px); background: var(--gray-800); color: white; padding: 10px 20px; border-radius: 99px; font-size: 13px; font-weight: 500; z-index: 999; transition: transform 0.3s ease; white-space: nowrap; }
   .toast.show { transform: translateX(-50%) translateY(0); }
+  
   /* BUDGET SECTION */
-  .budget-card {
-    margin: 0 1rem 1rem;
-    background: var(--card);
-    border-radius: var(--radius);
-    padding: 14px;
-    box-shadow: var(--shadow);
-    border-left: 4px solid var(--primary);
-  }
-  .budget-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 13px;
-    padding: 3px 0;
-  }
-  .budget-row .label { color: var(--gray-600); }
-  .budget-row .value { font-weight: 600; }
-  .budget-total {
-    border-top: 1px solid var(--gray-200);
-    margin-top: 6px;
-    padding-top: 6px;
-    font-weight: 700;
-    font-size: 15px;
-  }
+  .budget-card { margin: 0 1rem 1rem; background: var(--card); border-radius: var(--radius); padding: 14px; box-shadow: var(--shadow); border-left: 4px solid var(--primary); }
+  .budget-row { display: flex; justify-content: space-between; align-items: center; font-size: 13px; padding: 3px 0; }
+  .budget-row .label { color: var(--gray-600); } .budget-row .value { font-weight: 600; }
+  .budget-total { border-top: 1px solid var(--gray-200); margin-top: 6px; padding-top: 6px; font-weight: 700; font-size: 15px; }
 </style>
 </head>
 <body>
@@ -465,31 +159,7 @@
   <p>Dashboard de compras y organización</p>
 </div>
 
-<div class="stats-bar">
-  <div class="stat-item">
-    <div class="stat-num total" id="stat-total">0</div>
-    <div class="stat-label">Total</div>
-  </div>
-  <div class="stat-item">
-    <div class="stat-num pend" id="stat-pend">0</div>
-    <div class="stat-label">Pendiente</div>
-  </div>
-  <div class="stat-item">
-    <div class="stat-num done" id="stat-done">0</div>
-    <div class="stat-label">Completado</div>
-  </div>
-</div>
-
-<div class="progress-wrap">
-  <div class="progress-top">
-    <span>Progreso general</span>
-    <span id="pct-text">0%</span>
-  </div>
-  <div class="progress-bar">
-    <div class="progress-fill" id="progress-fill" style="width:0%"></div>
-  </div>
-</div>
-
+<!-- COUNTDOWN -->
 <div class="countdown-card" id="countdown-card">
   <div class="cd-title">⏳ Faltan para el gran día</div>
   <div class="cd-timer" id="cd-timer">
@@ -500,25 +170,56 @@
   </div>
 </div>
 
-<div class="controls">
-  <button class="filter-btn active" data-filter="todos" onclick="setFilter(this)">Todos</button>
-  <button class="filter-btn" data-filter="Pendiente" onclick="setFilter(this)">Pendientes</button>
-  <button class="filter-btn" data-filter="Completado" onclick="setFilter(this)">Hechos</button>
-  <button class="btn-add" onclick="openModal()">+ Agregar</button>
+<!-- TABS NAVEGACIÓN -->
+<div class="main-tabs">
+  <button class="main-tab active" id="tab-btn-tareas" onclick="window.switchTab('tareas')">📋 Tareas</button>
+  <button class="main-tab" id="tab-btn-invitados" onclick="window.switchTab('invitados')">👥 Invitados</button>
 </div>
 
-<div class="list-section" id="list-section">
-  <div class="empty-state"><p>Cargando ítems...</p></div>
+<!-- ==================== VISTA: TAREAS ==================== -->
+<div id="view-tareas">
+  <div class="stats-bar">
+    <div class="stat-item"><div class="stat-num total" id="stat-total">0</div><div class="stat-label">Total</div></div>
+    <div class="stat-item"><div class="stat-num pend" id="stat-pend">0</div><div class="stat-label">Pendiente</div></div>
+    <div class="stat-item"><div class="stat-num done" id="stat-done">0</div><div class="stat-label">Completado</div></div>
+  </div>
+  <div class="progress-wrap">
+    <div class="progress-top"><span>Progreso general</span><span id="pct-text">0%</span></div>
+    <div class="progress-bar"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
+  </div>
+  <div class="controls">
+    <button class="filter-btn active" data-filter="todos" onclick="setFilter(this)">Todos</button>
+    <button class="filter-btn" data-filter="Pendiente" onclick="setFilter(this)">Pendientes</button>
+    <button class="filter-btn" data-filter="Completado" onclick="setFilter(this)">Hechos</button>
+    <button class="btn-add" onclick="openModal()">+ Agregar Tarea</button>
+  </div>
+  <div class="list-section" id="list-section"><div class="empty-state"><p>Cargando tareas...</p></div></div>
+  <div class="budget-card" id="budget-section" style="display:none">
+    <div style="font-size:13px;font-weight:700;color:var(--primary);margin-bottom:8px">💰 Presupuesto estimado</div>
+    <div id="budget-rows"></div>
+  </div>
 </div>
 
-<div class="budget-card" id="budget-section" style="display:none">
-  <div style="font-size:13px;font-weight:700;color:var(--primary);margin-bottom:8px">💰 Presupuesto estimado</div>
-  <div id="budget-rows"></div>
+<!-- ==================== VISTA: INVITADOS ==================== -->
+<div id="view-invitados" style="display:none;">
+  <div class="guest-stats">
+    <div class="g-stat"><div class="g-stat-num" id="g-total">0</div><div class="g-stat-label">Total</div></div>
+    <div class="g-stat"><div class="g-stat-num" id="g-conf">0</div><div class="g-stat-label" style="color:var(--success)">Confirmados</div></div>
+    <div class="g-stat"><div class="g-stat-num" id="g-adultos">0</div><div class="g-stat-label">Adultos</div></div>
+    <div class="g-stat"><div class="g-stat-num" id="g-ninos">0</div><div class="g-stat-label">Niños</div></div>
+  </div>
+  <div class="controls">
+    <div style="flex:1; font-size:14px; font-weight:700; color:var(--gray-800); align-self:center;">Lista de Invitados</div>
+    <button class="btn-add" onclick="openGuestModal()">+ Agregar Invitado</button>
+  </div>
+  <div class="list-section" id="guest-list"><div class="empty-state"><p>Cargando invitados...</p></div></div>
 </div>
 
-<div class="modal-overlay" id="modal" onclick="closeIfOutside(event)">
+
+<!-- MODAL TAREAS -->
+<div class="modal-overlay" id="modal" onclick="closeIfOutside(event, 'modal')">
   <div class="modal">
-    <div class="modal-title" id="modal-title">Agregar ítem</div>
+    <div class="modal-title" id="modal-title">Agregar Tarea</div>
     <div class="form-group">
       <label class="form-label">Nombre del ítem *</label>
       <input class="form-input" id="f-nombre" placeholder="Ej: Carne y chorizos para asado" />
@@ -554,8 +255,42 @@
       <textarea class="form-textarea" id="f-nota" placeholder="Marca, cantidad, tienda..."></textarea>
     </div>
     <div class="modal-actions">
-      <button class="btn-cancel" onclick="closeModal()">Cancelar</button>
+      <button class="btn-cancel" onclick="closeModal('modal')">Cancelar</button>
       <button class="btn-save" onclick="saveItem()">Guardar</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL INVITADOS -->
+<div class="modal-overlay" id="modal-guest" onclick="closeIfOutside(event, 'modal-guest')">
+  <div class="modal">
+    <div class="modal-title" id="modal-guest-title">Agregar Invitado</div>
+    <div class="form-group">
+      <label class="form-label">Nombre del invitado / Familia *</label>
+      <input class="form-input" id="g-nombre" placeholder="Ej: Tío Juan" />
+    </div>
+    <div class="form-group">
+      <label class="form-label">Tipo *</label>
+      <select class="form-select" id="g-tipo">
+        <option value="Adulto" selected>👨 Adulto</option>
+        <option value="Niño">👦 Niño / Niña</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Estado de Confirmación</label>
+      <select class="form-select" id="g-estado">
+        <option value="Confirmado">✅ Confirmado</option>
+        <option value="Pendiente" selected>⏳ Pendiente</option>
+        <option value="Cancelado">❌ No podrá asistir</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Notas (Opcional)</label>
+      <textarea class="form-textarea" id="g-nota" placeholder="Alergias, menú especial..."></textarea>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="closeModal('modal-guest')">Cancelar</button>
+      <button class="btn-save" onclick="saveGuest()">Guardar</button>
     </div>
   </div>
 </div>
@@ -563,11 +298,10 @@
 <div class="toast" id="toast"></div>
 
 <script type="module">
-  // 1. Importar Firebase y Firestore
+  // 1. Importar Firebase
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
   import { getFirestore, collection, onSnapshot, addDoc, updateDoc, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-  // 2. Tu configuración
   const firebaseConfig = {
     apiKey: "AIzaSyBNZOAbROxBNptQVFIWQh6fZ-Kf4tYa53k",
     authDomain: "cumpleanos-thiago.firebaseapp.com",
@@ -577,209 +311,187 @@
     appId: "1:447789465359:web:0c4266e63a8cb5ef61087a"
   };
 
-  // 3. Inicializar App y Base de Datos
   const app = initializeApp(firebaseConfig);
   const db = getFirestore(app);
 
-  const ICONS = {
-    'Comida':'🍖','Bebidas':'🥤','Descartables':'🛍️','Pastelería':'🎂',
-    'Decoración':'🎈','Decoración/Estructura':'🏗️','Entretenimiento':'🎮',
-    'Invitaciones':'📨','Regalo':'🎁','Otro':'📦'
-  };
-
+  // Variables Globales
   let items = []; 
+  let guests = [];
   let editId = null;
+  let editGuestId = null;
   let activeFilter = 'todos';
 
-  // 4. Escuchar cambios en Firestore EN TIEMPO REAL
+  // Navegación Pestañas
+  window.switchTab = function(tab) {
+    document.getElementById('view-tareas').style.display = tab === 'tareas' ? 'block' : 'none';
+    document.getElementById('view-invitados').style.display = tab === 'invitados' ? 'block' : 'none';
+    document.getElementById('tab-btn-tareas').className = tab === 'tareas' ? 'main-tab active' : 'main-tab';
+    document.getElementById('tab-btn-invitados').className = tab === 'invitados' ? 'main-tab active' : 'main-tab';
+  };
+
+  // ==================== LÓGICA DE TAREAS ====================
+  const ICONS = { 'Comida':'🍖','Bebidas':'🥤','Descartables':'🛍️','Pastelería':'🎂','Decoración':'🎈','Entretenimiento':'🎮','Invitaciones':'📨','Regalo':'🎁','Otro':'📦' };
+
   onSnapshot(collection(db, "tareas_cumple"), (snapshot) => {
-    items = [];
-    snapshot.forEach((doc) => {
-      items.push({ id: doc.id, ...doc.data() });
-    });
-    render();
+    items = []; snapshot.forEach(doc => items.push({ id: doc.id, ...doc.data() })); renderTareas();
   });
 
-  // 5. Exponer funciones a 'window'
   window.setFilter = function(btn) {
     document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    activeFilter = btn.dataset.filter;
-    render();
+    btn.classList.add('active'); activeFilter = btn.dataset.filter; renderTareas();
   };
 
   window.toggleEstado = async function(id) {
-    const item = items.find(i => i.id === id);
-    if (!item) return;
+    const item = items.find(i => i.id === id); if (!item) return;
     const nuevoEstado = item.estado === 'Completado' ? 'Pendiente' : 'Completado';
     await updateDoc(doc(db, "tareas_cumple", id), { estado: nuevoEstado });
-    showToast(nuevoEstado === 'Completado' ? '✅ Marcado como completado' : '🔄 Vuelto a pendiente');
+    showToast(nuevoEstado === 'Completado' ? '✅ Tarea completada' : '🔄 Vuelto a pendiente');
   };
 
   window.deleteItem = async function(id) {
-    if (!confirm('¿Eliminar este ítem?')) return;
-    await deleteDoc(doc(db, "tareas_cumple", id));
-    showToast('🗑️ Ítem eliminado');
+    if (!confirm('¿Eliminar esta tarea?')) return;
+    await deleteDoc(doc(db, "tareas_cumple", id)); showToast('🗑️ Eliminado');
   };
 
   window.openModal = function(id = null) {
-    editId = id;
-    const m = document.getElementById('modal');
-    document.getElementById('modal-title').textContent = id ? 'Editar ítem' : 'Agregar ítem';
-    
+    editId = id; document.getElementById('modal-title').textContent = id ? 'Editar Tarea' : 'Agregar Tarea';
     if (id) {
       const item = items.find(i => i.id === id);
-      document.getElementById('f-nombre').value = item.nombre;
-      document.getElementById('f-cat').value = item.cat;
-      document.getElementById('f-prio').value = item.prio;
-      document.getElementById('f-budget').value = item.budget || '';
+      document.getElementById('f-nombre').value = item.nombre; document.getElementById('f-cat').value = item.cat;
+      document.getElementById('f-prio').value = item.prio; document.getElementById('f-budget').value = item.budget || '';
       document.getElementById('f-nota').value = item.nota || '';
     } else {
-      document.getElementById('f-nombre').value = '';
-      document.getElementById('f-cat').value = 'Comida';
-      document.getElementById('f-prio').value = 'Media';
-      document.getElementById('f-budget').value = '';
-      document.getElementById('f-nota').value = '';
+      document.getElementById('f-nombre').value = ''; document.getElementById('f-cat').value = 'Comida';
+      document.getElementById('f-prio').value = 'Media'; document.getElementById('f-budget').value = ''; document.getElementById('f-nota').value = '';
     }
-    m.classList.add('open');
-    setTimeout(() => document.getElementById('f-nombre').focus(), 200);
-  };
-
-  window.closeModal = function() {
-    document.getElementById('modal').classList.remove('open');
-    editId = null;
-  };
-
-  window.closeIfOutside = function(e) {
-    if (e.target === document.getElementById('modal')) window.closeModal();
+    document.getElementById('modal').classList.add('open');
   };
 
   window.saveItem = async function() {
-    const nombre = document.getElementById('f-nombre').value.trim();
-    if (!nombre) { showToast('⚠️ Ingresá un nombre'); return; }
-    
-    const data = {
-      nombre,
-      cat: document.getElementById('f-cat').value,
-      prio: document.getElementById('f-prio').value,
-      budget: parseFloat(document.getElementById('f-budget').value) || 0,
-      nota: document.getElementById('f-nota').value.trim(),
-    };
-    
-    if (editId) {
-      await updateDoc(doc(db, "tareas_cumple", editId), data);
-      showToast('✏️ Ítem actualizado');
-    } else {
-      data.estado = 'Pendiente';
-      await addDoc(collection(db, "tareas_cumple"), data);
-      showToast('✅ Ítem agregado');
-    }
-    window.closeModal();
+    const nombre = document.getElementById('f-nombre').value.trim(); if (!nombre) { showToast('⚠️ Ingresa un nombre'); return; }
+    const data = { nombre, cat: document.getElementById('f-cat').value, prio: document.getElementById('f-prio').value, budget: parseFloat(document.getElementById('f-budget').value) || 0, nota: document.getElementById('f-nota').value.trim() };
+    if (editId) { await updateDoc(doc(db, "tareas_cumple", editId), data); showToast('✏️ Actualizado'); } 
+    else { data.estado = 'Pendiente'; await addDoc(collection(db, "tareas_cumple"), data); showToast('✅ Agregado'); }
+    window.closeModal('modal');
   };
 
-  function updateStats() {
-    const total = items.length;
-    const done  = items.filter(i => i.estado === 'Completado').length;
-    const pend  = total - done;
-    const pct   = total ? Math.round((done / total) * 100) : 0;
-    document.getElementById('stat-total').textContent = total;
-    document.getElementById('stat-pend').textContent  = pend;
-    document.getElementById('stat-done').textContent  = done;
-    document.getElementById('pct-text').textContent   = pct + '%';
-    document.getElementById('progress-fill').style.width = pct + '%';
-  }
-
-  function renderBudget() {
-    const withBudget = items.filter(i => i.budget > 0);
-    const section = document.getElementById('budget-section');
-    if (!withBudget.length) { section.style.display = 'none'; return; }
-    section.style.display = 'block';
-    const total = withBudget.reduce((s, i) => s + i.budget, 0);
-    const donePaid = withBudget.filter(i => i.estado === 'Completado').reduce((s, i) => s + i.budget, 0);
-    const rows = document.getElementById('budget-rows');
-    rows.innerHTML = `
-      <div class="budget-row"><span class="label">Ítems con presupuesto</span><span class="value">${withBudget.length}</span></div>
-      <div class="budget-row"><span class="label">Gastado (completados)</span><span class="value" style="color:var(--success)">$${donePaid.toLocaleString('es-AR')}</span></div>
-      <div class="budget-row"><span class="label">Pendiente por gastar</span><span class="value" style="color:var(--accent)">${(total - donePaid) > 0 ? '$' + (total - donePaid).toLocaleString('es-AR') : '—'}</span></div>
-      <div class="budget-row budget-total"><span class="label">Total estimado</span><span class="value" style="color:var(--primary)">$${total.toLocaleString('es-AR')}</span></div>
-    `;
-  }
-
-  function renderList() {
+  function renderTareas() {
+    // Stats
+    const total = items.length; const done = items.filter(i => i.estado === 'Completado').length; const pend = total - done; const pct = total ? Math.round((done/total)*100) : 0;
+    document.getElementById('stat-total').textContent = total; document.getElementById('stat-pend').textContent = pend; document.getElementById('stat-done').textContent = done; document.getElementById('pct-text').textContent = pct + '%'; document.getElementById('progress-fill').style.width = pct + '%';
+    // List
     const section = document.getElementById('list-section');
     let filtered = activeFilter === 'todos' ? items : items.filter(i => i.estado === activeFilter);
-    if (!filtered.length) {
-      section.innerHTML = `<div class="empty-state"><div class="emoji">${activeFilter === 'Completado' ? '🎉' : '📋'}</div><p>${activeFilter === 'Completado' ? '¡Todavía no completaste nada!' : 'Añadí ítems para empezar la organización'}</p></div>`;
-      return;
-    }
-    const cats = [...new Set(filtered.map(i => i.cat))];
-    section.innerHTML = cats.map(cat => {
-      const catItems = filtered.filter(i => i.cat === cat);
-      return `
-        <div class="category-group">
-          <div class="category-header">${ICONS[cat] || '📦'} ${cat}</div>
-          ${catItems.map(item => `
-            <div class="item-card ${item.estado === 'Completado' ? 'done' : ''}">
-              <div class="toggle-wrap">
-                <label class="toggle">
-                  <input type="checkbox" ${item.estado === 'Completado' ? 'checked' : ''} onchange="window.toggleEstado('${item.id}')">
-                  <span class="toggle-track"></span>
-                  <span class="toggle-thumb"></span>
-                </label>
-              </div>
-              <div class="item-body">
-                <div class="item-name">${item.nombre}</div>
-                <div class="item-meta">
-                  <span class="badge ${item.prio.toLowerCase()}">${item.prio}</span>
-                  <span class="badge ${item.estado === 'Completado' ? 'comp' : 'pend'}">${item.estado}</span>
-                  ${item.budget > 0 ? `<span style="font-size:11px;color:var(--gray-400)">$${item.budget.toLocaleString('es-AR')}</span>` : ''}
-                </div>
-                ${item.nota ? `<div class="item-note">${item.nota}</div>` : ''}
-              </div>
-              <div class="item-actions">
-                <button class="btn-icon" onclick="window.openModal('${item.id}')" title="Editar">✏️</button>
-                <button class="btn-icon del" onclick="window.deleteItem('${item.id}')" title="Eliminar">🗑️</button>
-              </div>
+    if (!filtered.length) { section.innerHTML = `<div class="empty-state"><div class="emoji">📋</div><p>No hay tareas aquí</p></div>`; } 
+    else {
+      const cats = [...new Set(filtered.map(i => i.cat))];
+      section.innerHTML = cats.map(cat => `
+        <div class="category-group"><div class="category-header">${ICONS[cat]||'📦'} ${cat}</div>
+        ${filtered.filter(i => i.cat === cat).map(item => `
+          <div class="item-card ${item.estado === 'Completado' ? 'done' : ''}">
+            <div class="toggle-wrap"><label class="toggle"><input type="checkbox" ${item.estado==='Completado'?'checked':''} onchange="window.toggleEstado('${item.id}')"><span class="toggle-track"></span><span class="toggle-thumb"></span></label></div>
+            <div class="item-body"><div class="item-name">${item.nombre}</div>
+              <div class="item-meta"><span class="badge ${item.prio.toLowerCase()}">${item.prio}</span><span class="badge ${item.estado==='Completado'?'comp':'pend'}">${item.estado}</span>${item.budget>0 ? `<span style="font-size:11px;color:var(--gray-400)">$${item.budget.toLocaleString('es-AR')}</span>`:''}</div>
+              ${item.nota ? `<div class="item-note">${item.nota}</div>`:''}
             </div>
-          `).join('')}
-        </div>
-      `;
-    }).join('');
-  }
-
-  function render() { updateStats(); renderList(); renderBudget(); }
-
-  function showToast(msg) {
-    const t = document.getElementById('toast');
-    t.textContent = msg;
-    t.classList.add('show');
-    setTimeout(() => t.classList.remove('show'), 2200);
-  }
-
-  document.addEventListener('keydown', e => { if (e.key === 'Escape') window.closeModal(); });
-
-  // 6. Lógica del Contador
-  // Fecha del evento establecida con la zona horaria para que sea exacto.
-  const targetDate = new Date("2026-06-21T11:00:00-03:00").getTime();
-
-  setInterval(() => {
-    const now = new Date().getTime();
-    const distance = targetDate - now;
-
-    if (distance < 0) {
-      document.getElementById('cd-timer').innerHTML = '<div style="font-size:18px; font-weight:700; margin: 10px 0;">¡Es hoy! ¡Feliz cumple Thiago! 🎈🎉</div>';
-      return;
+            <div class="item-actions"><button class="btn-icon" onclick="window.openModal('${item.id}')">✏️</button><button class="btn-icon del" onclick="window.deleteItem('${item.id}')">🗑️</button></div>
+          </div>`).join('')}</div>`).join('');
     }
+    // Budget
+    const withBudget = items.filter(i => i.budget > 0);
+    if (!withBudget.length) { document.getElementById('budget-section').style.display = 'none'; } 
+    else {
+      document.getElementById('budget-section').style.display = 'block';
+      const tBud = withBudget.reduce((s, i) => s + i.budget, 0); const dBud = withBudget.filter(i=>i.estado==='Completado').reduce((s, i) => s + i.budget, 0);
+      document.getElementById('budget-rows').innerHTML = `
+        <div class="budget-row"><span class="label">Gastado (completados)</span><span class="value" style="color:var(--success)">$${dBud.toLocaleString('es-AR')}</span></div>
+        <div class="budget-row"><span class="label">Pendiente</span><span class="value" style="color:var(--accent)">$${(tBud-dBud).toLocaleString('es-AR')}</span></div>
+        <div class="budget-row budget-total"><span class="label">Total estimado</span><span class="value" style="color:var(--primary)">$${tBud.toLocaleString('es-AR')}</span></div>`;
+    }
+  }
 
-    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+  // ==================== LÓGICA DE INVITADOS ====================
+  onSnapshot(collection(db, "invitados_cumple"), (snapshot) => {
+    guests = []; snapshot.forEach(doc => guests.push({ id: doc.id, ...doc.data() })); renderInvitados();
+  });
 
-    document.getElementById("cd-days").textContent = days;
-    document.getElementById("cd-hours").textContent = hours;
-    document.getElementById("cd-mins").textContent = minutes;
-    document.getElementById("cd-secs").textContent = seconds;
+  window.openGuestModal = function(id = null) {
+    editGuestId = id; document.getElementById('modal-guest-title').textContent = id ? 'Editar Invitado' : 'Agregar Invitado';
+    if (id) {
+      const g = guests.find(i => i.id === id);
+      document.getElementById('g-nombre').value = g.nombre; document.getElementById('g-tipo').value = g.tipo;
+      document.getElementById('g-estado').value = g.estado; document.getElementById('g-nota').value = g.nota || '';
+    } else {
+      document.getElementById('g-nombre').value = ''; document.getElementById('g-tipo').value = 'Adulto';
+      document.getElementById('g-estado').value = 'Pendiente'; document.getElementById('g-nota').value = '';
+    }
+    document.getElementById('modal-guest').classList.add('open');
+  };
+
+  window.saveGuest = async function() {
+    const nombre = document.getElementById('g-nombre').value.trim(); if (!nombre) { showToast('⚠️ Ingresa el nombre'); return; }
+    const data = { nombre, tipo: document.getElementById('g-tipo').value, estado: document.getElementById('g-estado').value, nota: document.getElementById('g-nota').value.trim() };
+    if (editGuestId) { await updateDoc(doc(db, "invitados_cumple", editGuestId), data); showToast('✏️ Invitado actualizado'); } 
+    else { await addDoc(collection(db, "invitados_cumple"), data); showToast('✅ Invitado agregado'); }
+    window.closeModal('modal-guest');
+  };
+
+  window.deleteGuest = async function(id) {
+    if (!confirm('¿Eliminar invitado?')) return;
+    await deleteDoc(doc(db, "invitados_cumple", id)); showToast('🗑️ Invitado eliminado');
+  };
+
+  window.changeGuestStatus = async function(id, selectElement) {
+    await updateDoc(doc(db, "invitados_cumple", id), { estado: selectElement.value });
+    showToast('Estado actualizado');
+  };
+
+  function renderInvitados() {
+    const list = document.getElementById('guest-list');
+    document.getElementById('g-total').textContent = guests.length;
+    document.getElementById('g-conf').textContent = guests.filter(g => g.estado === 'Confirmado').length;
+    document.getElementById('g-adultos').textContent = guests.filter(g => g.tipo === 'Adulto').length;
+    document.getElementById('g-ninos').textContent = guests.filter(g => g.tipo === 'Niño').length;
+
+    if (!guests.length) { list.innerHTML = `<div class="empty-state"><div class="emoji">👥</div><p>No hay invitados registrados aún.</p></div>`; return; }
+
+    list.innerHTML = guests.sort((a,b) => a.nombre.localeCompare(b.nombre)).map(g => `
+      <div class="item-card">
+        <div style="font-size:24px; padding-right:10px;">${g.tipo === 'Adulto' ? '👨' : '👦'}</div>
+        <div class="item-body">
+          <div class="item-name">${g.nombre}</div>
+          <div style="margin-top:4px;">
+            <select class="g-status-select ${g.estado}" onchange="window.changeGuestStatus('${g.id}', this)">
+              <option value="Confirmado" ${g.estado === 'Confirmado' ? 'selected' : ''}>✅ Confirmado</option>
+              <option value="Pendiente" ${g.estado === 'Pendiente' ? 'selected' : ''}>⏳ Pendiente</option>
+              <option value="Cancelado" ${g.estado === 'Cancelado' ? 'selected' : ''}>❌ Cancelado</option>
+            </select>
+          </div>
+          ${g.nota ? `<div class="item-note" style="margin-top:6px;">💬 ${g.nota}</div>` : ''}
+        </div>
+        <div class="item-actions">
+          <button class="btn-icon" onclick="window.openGuestModal('${g.id}')">✏️</button>
+          <button class="btn-icon del" onclick="window.deleteGuest('${g.id}')">🗑️</button>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  // Utilidades Globales
+  window.closeModal = function(modalId) { document.getElementById(modalId).classList.remove('open'); editId = null; editGuestId = null; };
+  window.closeIfOutside = function(e, modalId) { if (e.target === document.getElementById(modalId)) window.closeModal(modalId); };
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') { window.closeModal('modal'); window.closeModal('modal-guest'); } });
+  function showToast(msg) { const t = document.getElementById('toast'); t.textContent = msg; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 2200); }
+
+  // Cuenta Regresiva (20 de junio a las 11:00 hs)
+  const targetDate = new Date("2026-06-21T11:00:00-03:00").getTime();
+  setInterval(() => {
+    const now = new Date().getTime(); const distance = targetDate - now;
+    if (distance < 0) { document.getElementById('cd-timer').innerHTML = '<div style="font-size:18px; font-weight:700; margin: 10px 0;">¡Es hoy! ¡Feliz cumple Thiago! 🎈🎉</div>'; return; }
+    document.getElementById("cd-days").textContent = Math.floor(distance / (1000 * 60 * 60 * 24));
+    document.getElementById("cd-hours").textContent = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    document.getElementById("cd-mins").textContent = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    document.getElementById("cd-secs").textContent = Math.floor((distance % (1000 * 60)) / 1000);
   }, 1000);
 
 </script>
