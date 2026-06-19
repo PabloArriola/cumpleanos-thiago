@@ -120,6 +120,46 @@
     border-radius: 99px;
     transition: width 0.5s ease;
   }
+  /* COUNTDOWN */
+  .countdown-card {
+    margin: 1rem;
+    background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
+    border-radius: var(--radius);
+    padding: 14px;
+    color: white;
+    box-shadow: var(--shadow-md);
+    text-align: center;
+  }
+  .cd-title {
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .cd-timer {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+  }
+  .cd-box {
+    background: rgba(255,255,255,0.25);
+    border-radius: 8px;
+    padding: 8px 12px;
+    min-width: 60px;
+  }
+  .cd-box span {
+    display: block;
+    font-size: 24px;
+    font-weight: 800;
+    line-height: 1;
+  }
+  .cd-box small {
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    opacity: 0.95;
+  }
   /* CONTROLS */
   .controls {
     padding: 0.75rem 1rem;
@@ -450,6 +490,16 @@
   </div>
 </div>
 
+<div class="countdown-card" id="countdown-card">
+  <div class="cd-title">⏳ Faltan para el gran día</div>
+  <div class="cd-timer" id="cd-timer">
+    <div class="cd-box"><span id="cd-days">0</span><small>Días</small></div>
+    <div class="cd-box"><span id="cd-hours">0</span><small>Horas</small></div>
+    <div class="cd-box"><span id="cd-mins">0</span><small>Min</small></div>
+    <div class="cd-box"><span id="cd-secs">0</span><small>Seg</small></div>
+  </div>
+</div>
+
 <div class="controls">
   <button class="filter-btn active" data-filter="todos" onclick="setFilter(this)">Todos</button>
   <button class="filter-btn" data-filter="Pendiente" onclick="setFilter(this)">Pendientes</button>
@@ -461,13 +511,11 @@
   <div class="empty-state"><p>Cargando ítems...</p></div>
 </div>
 
-<!-- BUDGET -->
 <div class="budget-card" id="budget-section" style="display:none">
   <div style="font-size:13px;font-weight:700;color:var(--primary);margin-bottom:8px">💰 Presupuesto estimado</div>
   <div id="budget-rows"></div>
 </div>
 
-<!-- MODAL -->
 <div class="modal-overlay" id="modal" onclick="closeIfOutside(event)">
   <div class="modal">
     <div class="modal-title" id="modal-title">Agregar ítem</div>
@@ -539,7 +587,7 @@
     'Invitaciones':'📨','Regalo':'🎁','Otro':'📦'
   };
 
-  let items = []; // Ahora iniciará vacío y se llenará desde Firebase
+  let items = []; 
   let editId = null;
   let activeFilter = 'todos';
 
@@ -552,7 +600,7 @@
     render();
   });
 
-  // 5. Exponer funciones a 'window' para que los botones HTML las reconozcan
+  // 5. Exponer funciones a 'window'
   window.setFilter = function(btn) {
     document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
@@ -564,15 +612,12 @@
     const item = items.find(i => i.id === id);
     if (!item) return;
     const nuevoEstado = item.estado === 'Completado' ? 'Pendiente' : 'Completado';
-    
-    // Actualizar en Firebase
     await updateDoc(doc(db, "tareas_cumple", id), { estado: nuevoEstado });
     showToast(nuevoEstado === 'Completado' ? '✅ Marcado como completado' : '🔄 Vuelto a pendiente');
   };
 
   window.deleteItem = async function(id) {
     if (!confirm('¿Eliminar este ítem?')) return;
-    // Eliminar de Firebase
     await deleteDoc(doc(db, "tareas_cumple", id));
     showToast('🗑️ Ítem eliminado');
   };
@@ -622,11 +667,9 @@
     };
     
     if (editId) {
-      // Editar en Firebase
       await updateDoc(doc(db, "tareas_cumple", editId), data);
       showToast('✏️ Ítem actualizado');
     } else {
-      // Agregar nuevo a Firebase
       data.estado = 'Pendiente';
       await addDoc(collection(db, "tareas_cumple"), data);
       showToast('✅ Ítem agregado');
@@ -714,6 +757,30 @@
   }
 
   document.addEventListener('keydown', e => { if (e.key === 'Escape') window.closeModal(); });
+
+  // 6. Lógica del Contador
+  // Fecha del evento establecida con la zona horaria para que sea exacto.
+  const targetDate = new Date("2026-06-20T11:00:00-03:00").getTime();
+
+  setInterval(() => {
+    const now = new Date().getTime();
+    const distance = targetDate - now;
+
+    if (distance < 0) {
+      document.getElementById('cd-timer').innerHTML = '<div style="font-size:18px; font-weight:700; margin: 10px 0;">¡Es hoy! ¡Feliz cumple Thiago! 🎈🎉</div>';
+      return;
+    }
+
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    document.getElementById("cd-days").textContent = days;
+    document.getElementById("cd-hours").textContent = hours;
+    document.getElementById("cd-mins").textContent = minutes;
+    document.getElementById("cd-secs").textContent = seconds;
+  }, 1000);
 
 </script>
 </body>
