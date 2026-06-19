@@ -119,7 +119,7 @@
   .g-stat { flex: 1; background: var(--card); padding: 12px 6px; border-radius: var(--radius-sm); text-align: center; box-shadow: var(--shadow); }
   .g-stat-num { font-size: 20px; font-weight: 800; color: var(--primary); line-height: 1; }
   .g-stat-label { font-size: 10px; color: var(--gray-600); text-transform: uppercase; font-weight: 700; margin-top: 4px; }
-  .g-status-select { font-size: 12px; font-weight: 600; border: 1.5px solid var(--gray-200); border-radius: 6px; padding: 4px; background: white; color: var(--gray-800); outline: none; }
+  .g-status-select { font-size: 12px; font-weight: 600; border: 1.5px solid var(--gray-200); border-radius: 6px; padding: 4px; background: white; color: var(--gray-800); outline: none; width: 100%; max-width: 140px;}
   .g-status-select.Confirmado { border-color: var(--success); color: var(--success); }
   .g-status-select.Pendiente { border-color: var(--accent); color: var(--accent); }
   .g-status-select.Cancelado { border-color: var(--danger); color: var(--danger); }
@@ -376,10 +376,9 @@
   };
 
   function renderTareas() {
-    // Stats
     const total = items.length; const done = items.filter(i => i.estado === 'Completado').length; const pend = total - done; const pct = total ? Math.round((done/total)*100) : 0;
     document.getElementById('stat-total').textContent = total; document.getElementById('stat-pend').textContent = pend; document.getElementById('stat-done').textContent = done; document.getElementById('pct-text').textContent = pct + '%'; document.getElementById('progress-fill').style.width = pct + '%';
-    // List
+    
     const section = document.getElementById('list-section');
     let filtered = activeFilter === 'todos' ? items : items.filter(i => i.estado === activeFilter);
     if (!filtered.length) { section.innerHTML = `<div class="empty-state"><div class="emoji">📋</div><p>No hay tareas aquí</p></div>`; } 
@@ -397,7 +396,7 @@
             <div class="item-actions"><button class="btn-icon" onclick="window.openModal('${item.id}')">✏️</button><button class="btn-icon del" onclick="window.deleteItem('${item.id}')">🗑️</button></div>
           </div>`).join('')}</div>`).join('');
     }
-    // Budget
+    
     const withBudget = items.filter(i => i.budget > 0);
     if (!withBudget.length) { document.getElementById('budget-section').style.display = 'none'; } 
     else {
@@ -448,14 +447,20 @@
 
   function renderInvitados() {
     const list = document.getElementById('guest-list');
+    const adultosCount = guests.filter(g => g.tipo === 'Adulto').length;
+    const ninosCount = guests.filter(g => g.tipo === 'Niño').length;
+
     document.getElementById('g-total').textContent = guests.length;
     document.getElementById('g-conf').textContent = guests.filter(g => g.estado === 'Confirmado').length;
-    document.getElementById('g-adultos').textContent = guests.filter(g => g.tipo === 'Adulto').length;
-    document.getElementById('g-ninos').textContent = guests.filter(g => g.tipo === 'Niño').length;
+    document.getElementById('g-adultos').textContent = adultosCount;
+    document.getElementById('g-ninos').textContent = ninosCount;
 
-    if (!guests.length) { list.innerHTML = `<div class="empty-state"><div class="emoji">👥</div><p>No hay invitados registrados aún.</p></div>`; return; }
+    if (!guests.length) { 
+      list.innerHTML = `<div class="empty-state"><div class="emoji">👥</div><p>No hay invitados registrados aún.</p></div>`; 
+      return; 
+    }
 
-    list.innerHTML = guests.sort((a,b) => a.nombre.localeCompare(b.nombre)).map(g => `
+    const generateGuestHTML = (g) => `
       <div class="item-card">
         <div style="font-size:24px; padding-right:10px;">${g.tipo === 'Adulto' ? '👨' : '👦'}</div>
         <div class="item-body">
@@ -474,7 +479,32 @@
           <button class="btn-icon del" onclick="window.deleteGuest('${g.id}')">🗑️</button>
         </div>
       </div>
-    `).join('');
+    `;
+
+    const adultos = guests.filter(g => g.tipo === 'Adulto').sort((a,b) => a.nombre.localeCompare(b.nombre));
+    const ninos = guests.filter(g => g.tipo === 'Niño').sort((a,b) => a.nombre.localeCompare(b.nombre));
+
+    let html = '';
+
+    if (adultos.length > 0) {
+      html += `
+        <div class="category-group">
+          <div class="category-header">👨 Adultos (${adultos.length})</div>
+          ${adultos.map(generateGuestHTML).join('')}
+        </div>
+      `;
+    }
+
+    if (ninos.length > 0) {
+      html += `
+        <div class="category-group">
+          <div class="category-header">👦 Niños (${ninos.length})</div>
+          ${ninos.map(generateGuestHTML).join('')}
+        </div>
+      `;
+    }
+
+    list.innerHTML = html;
   }
 
   // Utilidades Globales
@@ -484,7 +514,7 @@
   function showToast(msg) { const t = document.getElementById('toast'); t.textContent = msg; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 2200); }
 
   // Cuenta Regresiva (20 de junio a las 11:00 hs)
-  const targetDate = new Date("2026-06-21T11:00:00-03:00").getTime();
+  const targetDate = new Date("2026-06-20T11:00:00-03:00").getTime();
   setInterval(() => {
     const now = new Date().getTime(); const distance = targetDate - now;
     if (distance < 0) { document.getElementById('cd-timer').innerHTML = '<div style="font-size:18px; font-weight:700; margin: 10px 0;">¡Es hoy! ¡Feliz cumple Thiago! 🎈🎉</div>'; return; }
