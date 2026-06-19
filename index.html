@@ -514,7 +514,7 @@
   function showToast(msg) { const t = document.getElementById('toast'); t.textContent = msg; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 2200); }
 
   // Cuenta Regresiva (20 de junio a las 11:00 hs)
-  const targetDate = new Date("2026-06-20T11:00:00-03:00").getTime();
+  const targetDate = new Date("2026-06-21T11:00:00-03:00").getTime();
   setInterval(() => {
     const now = new Date().getTime(); const distance = targetDate - now;
     if (distance < 0) { document.getElementById('cd-timer').innerHTML = '<div style="font-size:18px; font-weight:700; margin: 10px 0;">¡Es hoy! ¡Feliz cumple Thiago! 🎈🎉</div>'; return; }
